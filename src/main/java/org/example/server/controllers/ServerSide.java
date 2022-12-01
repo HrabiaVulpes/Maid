@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Iterator;
+import java.util.List;
+
 @RestController
 public class ServerSide {
 
@@ -32,8 +35,6 @@ public class ServerSide {
         try {
             factory = new Configuration().configure().buildSessionFactory();
             session = factory.openSession();
-            tx = null;
-
             tx = session.beginTransaction();
             ListElement newLe = new ListElement();
             newLe.setList(list);
@@ -50,6 +51,27 @@ public class ServerSide {
 
     @GetMapping("/readList/{list}")
     String readList(@PathVariable String list) {
-        return "";
+        SessionFactory factory;
+        Session session;
+        Transaction tx;
+        StringBuffer result = new StringBuffer();
+
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            List listElements = session.createQuery("FROM ListElement").list();
+            for (Iterator iterator = listElements.iterator(); iterator.hasNext();){
+                ListElement lem = (ListElement) iterator.next();
+                result.append(lem.getElement());
+                result.append("\n");
+            }
+            tx.commit();
+            session.close();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        return result.toString();
     }
 }
