@@ -16,14 +16,6 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JList list = new JList(new CheckListItem[] { new CheckListItem("apple"),
                 new CheckListItem("orange"), new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
-                new CheckListItem("mango"),
 
                 new CheckListItem("paw paw"), new CheckListItem("banana") });
         list.setCellRenderer(new CheckListRenderer());
@@ -34,6 +26,7 @@ public class Main {
                 JList list = (JList) event.getSource();
                 int index = list.locationToIndex(event.getPoint());// Get index of item
                 // clicked
+
                 CheckListItem item = (CheckListItem) list.getModel()
                         .getElementAt(index);
                 item.setSelected(!item.isSelected()); // Toggle selected state
