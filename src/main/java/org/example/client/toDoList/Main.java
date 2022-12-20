@@ -1,6 +1,8 @@
 package org.example.client.toDoList;
 
-import java.awt.Component;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -25,12 +27,19 @@ public class Main {
 
                 CheckListItem item = (CheckListItem) list.getModel()
                         .getElementAt(index);
+
                 item.setSelected(!item.isSelected()); // Toggle selected state
                 list.repaint(list.getCellBounds(index, index));// Repaint cell
             }
         });
         JButton button = new JButton("Button");        //Create a JButton object
         button.setBounds(50, 250, 75, 35); //set dimensions for button
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Click");
+            }
+        });
         frame.add(button);
         frame.getContentPane().add(new JScrollPane(list));
         frame.pack();
