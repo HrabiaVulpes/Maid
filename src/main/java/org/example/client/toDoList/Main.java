@@ -12,6 +12,7 @@ public class Main {
     public static void main(String args[]) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        DefaultListModel model = new DefaultListModel<>();
         JList list = new JList(new CheckListItem[]{new CheckListItem("apple"),
                 new CheckListItem("orange"), new CheckListItem("mango"),
 
